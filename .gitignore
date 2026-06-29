@@ -1,0 +1,12 @@
+# Environment keys and secrets — NEVER commit these
+cloudability-env-keys.md
+*-env-keys*
+*.env
+.env.*
+
+# MCP settings contain tokens
+mcp.json
+
+# Local output files
+*.html
+output/
