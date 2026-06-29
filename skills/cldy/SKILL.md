@@ -19,6 +19,24 @@ Read `/Users/kingyeazey/.kiro/skills/cldy/AGENTIC-FINOPS-PLAN.md` — this is th
 
 When working on any Cloudability feature, consider how it fits into the Agentic FinOps roadmap.
 
+### Slack Integration (VALIDATED ✅)
+
+- **Workspace**: Seto Cloudability Integrations (`YOUR_SLACK_WORKSPACE.slack.com`)
+- **Bot user**: `cloudability_alerts` (User ID: `YOUR_SLACK_USER_ID`, Bot ID: `YOUR_SLACK_BOT_ID`)
+- **Channel**: `YOUR_SLACK_CHANNEL_ID` — **all FinOps posts go here**
+- **MCP Config**: `~/.kiro/settings/mcp.json` → `slack` entry
+- **Auth**: `SLACK_MCP_XOXB_TOKEN` env var (bot token, `xoxb-` prefix)
+- **Scopes confirmed**: `chat:write` (can post), missing `channels:read` (cannot list channels)
+- **Status**: Connected and posting successfully as of 2026-06-29
+
+To post to Slack:
+```bash
+SLACK_TOKEN=$(cat ~/.kiro/settings/mcp.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['mcpServers']['slack']['env']['SLACK_MCP_XOXB_TOKEN'])")
+curl -s -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H "Content-Type: application/json" \
+  -d '{"channel":"YOUR_SLACK_CHANNEL_ID","text":"message here"}' \
+  "https://slack.com/api/chat.postMessage"
+```
+
 ## Architecture Reference
 
 Read `/Users/kingyeazey/.kiro/skills/cldy/ARCHITECTURE.md` for design decisions, rationale, and how the system works together.
